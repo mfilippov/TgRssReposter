@@ -18,4 +18,4 @@ RUN case "${TARGETPLATFORM}" in \
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["TgRssReposter"]
+ENTRYPOINT ["/app/TgRssReposter"]
