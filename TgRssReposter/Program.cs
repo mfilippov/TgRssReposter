@@ -82,7 +82,7 @@ public static class Program
                                     $"unexpected node type: '{reader.NodeType}' after 'pubDate' element");
                             }
 
-                            pubDate = DateTime.Parse(reader.Value, CultureInfo.GetCultureInfo("en-us"));
+                            pubDate = DateTime.Parse(reader.Value, CultureInfo.InvariantCulture);
                             break;
                     }
                 }

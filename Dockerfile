@@ -17,5 +17,6 @@ RUN case "${TARGETPLATFORM}" in \
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
 WORKDIR /app
+# if I need culture specific features in future I nee to add: RUN apk add --no-cache icu-libs
 COPY --from=build-env /app/out .
 ENTRYPOINT ["/app/TgRssReposter"]
