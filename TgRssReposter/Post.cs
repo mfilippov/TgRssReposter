@@ -20,8 +20,8 @@ public class Post
     public string Encode(string? rhash)
     {
         return rhash == null
-            ? Uri.EscapeDataString($"{Title} <a href=\"https://t.me/iv?url={Link}\">{Link}</a>")
-            : Uri.EscapeDataString($"{Title} <a href=\"https://t.me/iv?url={Link}&rhash={rhash}\">{Link}</a>");
+            ? Uri.EscapeDataString($"{Title}<br/><a href=\"https://t.me/iv?url={Link}\">{Link}</a>")
+            : Uri.EscapeDataString($"{Title}<br/><a href=\"https://t.me/iv?url={Link}&rhash={rhash}\">{Link}</a>");
     }
 
     public override string ToString()
