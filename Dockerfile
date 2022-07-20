@@ -9,8 +9,8 @@ COPY TgRssReposter/*.cs ./
 RUN dotnet restore
 
 RUN case "${TARGETPLATFORM}" in \
-    "linux/arm64" ) dotnet publish -c Release -o out -r linux-arm64 --self-contained true;; \
-    "linux/amd64" ) dotnet publish -c Release -o out -r linux-x64 --self-contained true;; \
+    "linux/arm64" ) dotnet publish -c Release -o out -r linux-musl-arm64 --self-contained true;; \
+    "linux/amd64" ) dotnet publish -c Release -o out -r linux-musl-x64 --self-contained true;; \
     * ) echo "Unknown TARGETPLATFORM: '${TARGETPLATFORM}'" && exit 2;; \
     esac
 
