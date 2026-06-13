@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build-env
 WORKDIR /app
 
 ARG TARGETPLATFORM
@@ -15,7 +15,7 @@ RUN case "${TARGETPLATFORM}" in \
     esac
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime:10.0-alpine
 WORKDIR /app
 # if I need culture specific features in future I nee to add: RUN apk add --no-cache icu-libs
 COPY --from=build-env /app/out .
