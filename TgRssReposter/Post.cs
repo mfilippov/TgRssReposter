@@ -2,20 +2,13 @@ using System.Globalization;
 
 namespace TgRssReposter;
 
-public class Post
+public class Post(string title, string link, DateTime pubDate)
 {
     private const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss zzz";
     private const char UnitSeparator = (char)31;
-    private string Title { get; }
-    private string Link { get; }
-    public DateTime PubDate { get; }
-
-    public Post(string title, string link, DateTime pubDate)
-    {
-        Title = title;
-        Link = link;
-        PubDate = pubDate;
-    }
+    private string Title { get; } = title;
+    private string Link { get; } = link;
+    public DateTime PubDate { get; } = pubDate;
 
     public string Encode(string? rhash)
     {
