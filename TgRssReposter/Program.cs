@@ -108,7 +108,8 @@ public static class Program
 
         foreach (var post in postsFromFeed.Where(post => !storage.IsPublished(post)).OrderBy(post => post.PubDate))
         {
-            await telegram.PublishPost(post);
+            // Storage keeps the post exactly as it came from the feed, so link fixes don't cause reposts.
+            await telegram.PublishPost(await VsCodeLinkResolver.Resolve(post));
             await storage.RegisterPublishedPost(post);
         }
 

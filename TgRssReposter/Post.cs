@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Net;
 
 namespace TgRssReposter;
 
@@ -6,15 +7,25 @@ public class Post(string title, string link, DateTime pubDate)
 {
     private const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss zzz";
     private const char UnitSeparator = (char)31;
-    private string Title { get; } = title;
-    private string Link { get; } = link;
+    public string Title { get; } = title;
+    public string Link { get; } = link;
     public DateTime PubDate { get; } = pubDate;
 
     public string Encode(string? rhash)
     {
-        return rhash == null
-            ? Uri.EscapeDataString($"{Title}\n<a href=\"https://t.me/iv?url={Link}\">{Link}</a>")
-            : Uri.EscapeDataString($"{Title}\n<a href=\"https://t.me/iv?url={Link}&rhash={rhash}\">{Link}</a>");
+        var ivUrl = $"https://t.me/iv?url={Uri.EscapeDataString(Link)}";
+        if (rhash != null)
+        {
+            ivUrl += $"&rhash={Uri.EscapeDataString(rhash)}";
+        }
+
+        return Uri.EscapeDataString(
+            $"{WebUtility.HtmlEncode(Title)}\n<a href=\"{WebUtility.HtmlEncode(ivUrl)}\">{WebUtility.HtmlEncode(Link)}</a>");
+    }
+
+    public Post WithLink(string newLink)
+    {
+        return new Post(Title, newLink, PubDate);
     }
 
     public override string ToString()
